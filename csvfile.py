@@ -9,7 +9,7 @@ for _ in range(inp):
 total=[]
 sum2=0
 arrear=[]
-data={}
+
 
 
 with open("results.txt", "r+") as f:
@@ -54,7 +54,8 @@ def calculator(total,arrear):
                 elif(grade[i]=="C"):
                     grade[i]=5
                 elif(grade[i]== "U" or grade[i]=="RA" or grade[i]=="SA" or grade[i]== "w"):
-                    arrear.append(subjects[i])
+                    if subjects[i] not in arrear:
+                        arrear.append(subjects[i])
                     grade[i]=0
                     credit[i]=0
                 else:
@@ -77,7 +78,7 @@ def calculator(total,arrear):
                 t=round((sum2/sum(total)),2)
             if(len(arrear)==0):
                 arrear="NULL"
-            
+            data={}
             product=filename[:-4]
             data[product]=[]
             data[product].append({
@@ -86,7 +87,7 @@ def calculator(total,arrear):
                 'Current arrears':arrear
             })
             
-            with open ('results.txt','w') as files:
+            with open ('results.txt','a') as files:
                 json.dump(data,files,indent=2)
             
     except FileNotFoundError:
